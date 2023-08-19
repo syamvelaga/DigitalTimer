@@ -5,6 +5,7 @@ import './index.css'
 
 export default class DigitalTimer extends Component {
   state = {
+    initialTimer: 25,
     timer: 25 * 60,
     isRunning: false,
   }
@@ -38,17 +39,19 @@ export default class DigitalTimer extends Component {
   decrement = () => {
     this.setState(prev => ({
       timer: prev.timer - 1 * 60,
+      initialTimer: prev.initialTimer - 1,
     }))
   }
 
   increament = () => {
     this.setState(prev => ({
       timer: prev.timer + 1 * 60,
+      initialTimer: prev.initialTimer + 1,
     }))
   }
 
   render() {
-    const {timer} = this.state
+    const {timer, initialTimer} = this.state
     const mintues = Math.floor(timer / 60)
     const seconds = timer % 60
     const {isRunning} = this.state
@@ -68,48 +71,40 @@ export default class DigitalTimer extends Component {
           </div>
           <div className="buttons-bg">
             <div className="start-pause-reset-bg">
-              <div className="play-icon-bg">
+              <button
+                onClick={this.startPauseEvent}
+                type="button"
+                className="play-icon-bg star-reset-bt"
+              >
                 {isRunning ? (
                   <img
-                    onClick={this.startPauseEvent}
                     className="play-icon"
                     src="https://assets.ccbp.in/frontend/react-js/pause-icon-img.png"
                     alt="pause icon"
                   />
                 ) : (
                   <img
-                    onClick={this.startPauseEvent}
                     className="play-icon"
                     src="https://assets.ccbp.in/frontend/react-js/play-icon-img.png"
                     alt="play icon"
                   />
                 )}
-                {/* {isRunning ? (
-                  <button className="star-reset-bt" type="button">
-                    Pause
-                  </button>
-                ) : (
-                  <button className="star-reset-bt" type="button">
-                    Start
-                  </button>
-                )} */}
 
-                <button className="star-reset-bt" type="button">
-                  {isRunning ? 'Pause' : 'Start'}
-                </button>
-              </div>
+                {isRunning ? 'Pause' : 'Start'}
+              </button>
 
-              <div className="play-icon-bg">
+              <button
+                onClick={this.resetEvent}
+                type="button"
+                className="star-reset-bt play-icon-bg"
+              >
                 <img
-                  onClick={this.resetEvent}
                   className="play-icon"
                   src="https://assets.ccbp.in/frontend/react-js/reset-icon-img.png"
                   alt=" reset icon"
                 />
-                <button className="star-reset-bt" type="button">
-                  Reset
-                </button>
-              </div>
+                Reset
+              </button>
             </div>
             <p>Set Timer Limit</p>
             <div className="lower-bg">
@@ -121,7 +116,7 @@ export default class DigitalTimer extends Component {
               >
                 -
               </button>
-              <p className="para-25-bg">{mintues} </p>
+              <p className="para-25-bg">{initialTimer} </p>
               <button
                 onClick={this.increament}
                 className="star-reset-bt"
