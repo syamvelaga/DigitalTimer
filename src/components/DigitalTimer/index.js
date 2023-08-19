@@ -69,16 +69,36 @@ export default class DigitalTimer extends Component {
           <div className="buttons-bg">
             <div className="start-pause-reset-bg">
               <div className="play-icon-bg">
-                <img
-                  onClick={this.startPauseEvent}
-                  className="play-icon"
-                  src="https://assets.ccbp.in/frontend/react-js/play-icon-img.png"
-                  alt="play icon"
-                />
+                {isRunning ? (
+                  <img
+                    onClick={this.startPauseEvent}
+                    className="play-icon"
+                    src="https://assets.ccbp.in/frontend/react-js/pause-icon-img.png"
+                    alt="pause icon"
+                  />
+                ) : (
+                  <img
+                    onClick={this.startPauseEvent}
+                    className="play-icon"
+                    src="https://assets.ccbp.in/frontend/react-js/play-icon-img.png"
+                    alt="play icon"
+                  />
+                )}
+                {/* {isRunning ? (
+                  <button className="star-reset-bt" type="button">
+                    Pause
+                  </button>
+                ) : (
+                  <button className="star-reset-bt" type="button">
+                    Start
+                  </button>
+                )} */}
+
                 <button className="star-reset-bt" type="button">
-                  Start
+                  {isRunning ? 'Pause' : 'Start'}
                 </button>
               </div>
+
               <div className="play-icon-bg">
                 <img
                   onClick={this.resetEvent}
@@ -97,6 +117,7 @@ export default class DigitalTimer extends Component {
                 onClick={this.decrement}
                 className="star-reset-bt"
                 type="button"
+                disabled={isRunning}
               >
                 -
               </button>
@@ -105,6 +126,7 @@ export default class DigitalTimer extends Component {
                 onClick={this.increament}
                 className="star-reset-bt"
                 type="button"
+                disabled={isRunning}
               >
                 +
               </button>
